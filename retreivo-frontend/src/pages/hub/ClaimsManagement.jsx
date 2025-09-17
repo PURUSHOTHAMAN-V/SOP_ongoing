@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
 import { FiSearch, FiFilter, FiEye, FiCheck, FiX, FiClock, FiAlertTriangle, FiUser, FiMapPin, FiCalendar, FiMail } from 'react-icons/fi'
-import { getHubClaims, approveHubClaim, sendClaimMessage, sendEmail } from '../../services/api'
+import { getHubClaims, approveHubClaim, sendClaimMessage } from '../../services/api'
+import axios from 'axios'
 
 export default function ClaimsManagement() {
   const { hub, token } = useAuth();
@@ -32,7 +33,7 @@ export default function ClaimsManagement() {
   const fetchClaims = async () => {
     try {
       setLoading(true);
-      const response = await getHubClaims();
+      const response = await getHubClaims('', token);
       if (response.ok) {
         // Transform the API response to match our component's expected format
         const formattedClaims = response.claims.map(claim => ({
@@ -102,7 +103,7 @@ export default function ClaimsManagement() {
 
   const handleApprove = async (claimId) => {
     try {
-      const response = await approveHubClaim(claimId);
+      const response = await approveHubClaim(claimId, token);
       if (response.ok) {
         // Update the local state to reflect the change
         setClaims(prevClaims => 
@@ -141,9 +142,14 @@ export default function ClaimsManagement() {
       };
       
       try {
-        // First attempt to use the dedicated email API
-        const emailResponse = await sendEmail(emailData);
-        if (emailResponse.ok) {
+        // Dedicated backend email API using axios
+        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const emailResponse = await axios.post(`${baseUrl}/api/email/send-email`, {
+          to: emailData.to,
+          subject: emailData.subject,
+          message: emailData.body
+        });
+        if (emailResponse.data?.ok) {
           // Email sent successfully via API
           setClaims(prevClaims => 
             prevClaims.map(claim => 
@@ -167,25 +173,11 @@ export default function ClaimsManagement() {
           return;
         }
       } catch (emailErr) {
-        console.log('Email API not available, trying claim message API:', emailErr);
-      }
-      
-      // If email API fails, try the claim message API
-      const data = await sendClaimMessage(selectedClaim.id, messageData);
-      
-      if (data.ok) {
-        setClaims(prevClaims => 
-          prevClaims.map(claim => 
-            claim.id === selectedClaim.id ? { ...claim, messages: [...(claim.messages || []), { sender: 'hub', text: messageText, timestamp: new Date().toISOString() }] } : claim
-          )
-        );
-        setShowMessageModal(false);
-        setMessageText('');
-        setRecipientEmail('');
-        setSelectedClaim(null);
-        alert('Message sent successfully!');
-      } else {
-        throw new Error(data.error || 'Failed to send message');
+        const serverMsg = emailErr?.response?.data?.error || emailErr?.message || 'Unknown error';
+        console.log('Email API error:', serverMsg);
+        alert(`Failed to send email: ${serverMsg}`);
+        setSendingMessage(false);
+        return;
       }
     } catch (err) {
       console.error('Error sending message:', err);

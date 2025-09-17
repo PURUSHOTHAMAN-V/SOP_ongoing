@@ -8,11 +8,12 @@ import pkg from 'pg';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
+import { sendEmail as sendEmailUtil } from './utils/emailService.js';
 
 const { Pool } = pkg;
 
 // Email configuration
-const gmailUser = (process.env.GMAIL_USER || 'venkatesang542@gmail.com').trim();
+const gmailUser = (process.env.GMAIL_USER || 'guha91776@gmail.com').trim();
 // Gmail app passwords are shown with spaces; remove any whitespace to be safe
 const gmailAppPassword = (process.env.GMAIL_APP_PASSWORD || '').replace(/\s+/g, '');
 
@@ -81,7 +82,15 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:5176', 'http://localhost:5177', 'http://localhost:5178'],
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'http://localhost:5175',
+    'http://localhost:5176',
+    'http://localhost:5177',
+    'http://localhost:5178'
+  ],
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
@@ -155,6 +164,35 @@ app.post('/api/test-email', async (req, res) => {
   } catch (error) {
     console.error('Test email error:', error);
     res.status(500).json({ ok: false, error: 'Failed to send test email' });
+  }
+});
+// Simple email send endpoint
+app.post('/api/email/send-email', async (req, res) => {
+  try {
+    const { to, subject, message } = req.body || {};
+
+    if (!to || !subject || !message) {
+      return res.status(400).json({ ok: false, error: 'to, subject, and message are required' });
+    }
+
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #333;">Claim Update</h2>
+        <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 20px 0; white-space: pre-wrap;">
+          ${String(message).replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+        </div>
+        <p style="color: #666; font-size: 12px;">This is an automated message from Retreivo</p>
+      </div>
+    `;
+
+    const result = await sendEmailUtil({ to, subject, text: message, html });
+    if (result.ok) {
+      return res.json({ ok: true, messageId: result.messageId });
+    }
+    return res.status(500).json({ ok: false, error: result.error || 'Failed to send email' });
+  } catch (error) {
+    console.error('Email send error:', error);
+    return res.status(500).json({ ok: false, error: error?.message || 'Internal server error' });
   }
 });
 
