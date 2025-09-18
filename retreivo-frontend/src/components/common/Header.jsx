@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { FiSearch, FiUser, FiHome, FiLogOut, FiMapPin, FiPlus, FiGift, FiMenu, FiX, FiClipboard, FiBarChart2, FiUsers } from 'react-icons/fi'
+import { FiSearch, FiUser, FiHome, FiLogOut, FiMapPin, FiPlus, FiGift, FiMenu, FiX, FiClipboard, FiBarChart2, FiUsers, FiClock } from 'react-icons/fi'
 import { useAuth } from '../../contexts/AuthContext'
 
 export default function Header() {
@@ -163,6 +163,20 @@ export default function Header() {
                 Rewards
               </Link>
               
+              <Link to="/user/history" style={{
+                color: '#111827',
+                textDecoration: 'none',
+                fontWeight: '500',
+                fontSize: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'color 0.2s'
+              }}>
+                <FiClock size={18} />
+                My History
+              </Link>
+              
               <button onClick={handleLogout} style={{
                 background: 'transparent',
                 color: '#dc2626',
@@ -242,6 +256,20 @@ export default function Header() {
               }}>
                 <FiBarChart2 size={18} />
                 Analytics
+              </Link>
+              
+              <Link to="/hub/history" style={{
+                color: '#111827',
+                textDecoration: 'none',
+                fontWeight: '500',
+                fontSize: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                transition: 'color 0.2s'
+              }}>
+                <FiClock size={18} />
+                History
               </Link>
               
               <button onClick={handleLogout} style={{
@@ -404,6 +432,24 @@ export default function Header() {
                 Rewards
               </Link>
               
+              <Link 
+                to="/user/history" 
+                onClick={closeMobileMenu}
+                style={{
+                  color: '#111827',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '12px 0'
+                }}
+              >
+                <FiClock size={18} />
+                My History
+              </Link>
+              
               <button 
                 onClick={handleLogout}
                 style={{
@@ -498,6 +544,24 @@ export default function Header() {
               >
                 <FiBarChart2 size={18} />
                 Analytics
+              </Link>
+              
+              <Link 
+                to="/hub/history" 
+                onClick={closeMobileMenu}
+                style={{
+                  color: '#111827',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '12px 0'
+                }}
+              >
+                <FiClock size={18} />
+                History
               </Link>
               
               <button 

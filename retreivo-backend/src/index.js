@@ -1058,7 +1058,7 @@ app.get('/api/hub/claims', async (req, res) => {
             fraudIndicators = mlData.indicators || [];
           } else {
             // Fallback to basic calculation
-            fraudScore = await calculateFraudScore(claim.claimer_user_id, claim.item_id, claim.item_type);
+            fraudScore = await calculateFraudScore(claim.user_id, claim.item_id, claim.item_type);
           }
           
           return { 
@@ -1069,7 +1069,7 @@ app.get('/api/hub/claims', async (req, res) => {
           };
         } catch (error) {
           console.error('Error calculating fraud score:', error);
-          const fraudScore = await calculateFraudScore(claim.claimer_user_id, claim.item_id, claim.item_type);
+          const fraudScore = await calculateFraudScore(claim.user_id, claim.item_id, claim.item_type);
           return { 
             ...claim, 
             fraud_score: fraudScore,
@@ -1100,7 +1100,15 @@ app.put('/api/hub/claim/:id/approve', async (req, res) => {
     const { message } = req.body || {};
     await client.query('BEGIN');
 
-    const claimRes = await client.query('SELECT * FROM claims WHERE claim_id = $1 FOR UPDATE', [claimId]);
+    const claimRes = await client.query(`
+      SELECT c.*, 
+             COALESCE(f.name, l.name) as item_name,
+             COALESCE(f.description, l.description) as item_description
+      FROM claims c
+      LEFT JOIN found_items f ON c.item_id = f.item_id AND c.item_type = 'found'
+      LEFT JOIN lost_items l ON c.item_id = l.item_id AND c.item_type = 'lost'
+      WHERE c.claim_id = $1
+    `, [claimId]);
     if (claimRes.rowCount === 0) {
       await client.query('ROLLBACK');
       return res.status(404).json({ ok: false, error: 'Claim not found' });
@@ -1128,8 +1136,8 @@ app.put('/api/hub/claim/:id/approve', async (req, res) => {
         // Get item name for reward record
         const itemRes = await client.query('SELECT name FROM found_items WHERE item_id = $1', [claim.item_id]);
         const itemName = itemRes.rows[0]?.name || 'Unknown Item';
-        await client.query('INSERT INTO rewards(user_id, amount, reason, item_id, item_type) VALUES($1, $2, $3, $4, $5)', 
-          [finderUserId, rewardAmount, `🎉 Found item "${itemName}" successfully claimed and verified! You helped reunite someone with their lost item.`, claim.item_id, 'found']);
+        await client.query('INSERT INTO rewards(user_id, amount, reason) VALUES($1, $2, $3)', 
+          [finderUserId, rewardAmount, `🎉 Found item "${itemName}" successfully claimed and verified! You helped reunite someone with their lost item.`]);
       }
     } else if (claim.item_type === 'lost') {
       // For lost item claim approval, mark lost item resolved and reward the original reporter
@@ -1144,13 +1152,21 @@ app.put('/api/hub/claim/:id/approve', async (req, res) => {
         // Get item name for reward record
         const itemRes = await client.query('SELECT name FROM lost_items WHERE item_id = $1', [claim.item_id]);
         const itemName = itemRes.rows[0]?.name || 'Unknown Item';
-        await client.query('INSERT INTO rewards(user_id, amount, reason, item_id, item_type) VALUES($1, $2, $3, $4, $5)', 
-          [reporterUserId, rewardAmount, `🎉 Your lost item "${itemName}" has been found and verified! Thank you for reporting it and helping others.`, claim.item_id, 'lost']);
+        await client.query('INSERT INTO rewards(user_id, amount, reason) VALUES($1, $2, $3)', 
+          [reporterUserId, rewardAmount, `🎉 Your lost item "${itemName}" has been found and verified! Thank you for reporting it and helping others.`]);
       }
     }
 
+    // Auto-reject other pending claims for the same item (only one approval allowed)
+    await client.query(
+      `UPDATE claims
+       SET status = 'rejected', hub_message = COALESCE(hub_message, 'Another claim for this item was approved by hub')
+       WHERE item_id = $1 AND claim_id <> $2 AND status = 'pending'`,
+      [claim.item_id, claimId]
+    );
+
     // Get claimer email for notification
-    const claimerRes = await client.query('SELECT email, name FROM users WHERE user_id = $1', [claim.claimer_user_id]);
+    const claimerRes = await client.query('SELECT email, name FROM users WHERE user_id = $1', [claim.user_id]);
     const claimerEmail = claimerRes.rows[0]?.email;
     const claimerName = claimerRes.rows[0]?.name;
 
@@ -1175,9 +1191,85 @@ app.put('/api/hub/claim/:id/approve', async (req, res) => {
   } catch (err) {
     await client.query('ROLLBACK');
     console.error('Approve claim error:', err);
-    res.status(500).json({ ok: false, error: 'Failed to approve claim' });
+    res.status(500).json({ ok: false, error: err?.message || 'Failed to approve claim' });
   } finally {
     client.release();
+  }
+});
+
+// Hub history endpoint: returns claims by status and counts
+app.get('/api/hub/history', async (req, res) => {
+  try {
+    const status = req.query.status || null; // optional filter
+    const params = [];
+    let whereClause = '';
+    if (status) {
+      params.push(status);
+      whereClause = 'WHERE c.status = $1';
+    }
+
+    const claimsResult = await pool.query(
+      `SELECT c.claim_id, c.user_id AS claimer_user_id, c.item_id, c.item_type, c.status, c.created_at,
+              COALESCE(f.name, l.name) AS item_name,
+              COALESCE(f.description, l.description) AS item_description,
+              COALESCE(f.location, l.location) AS item_location,
+              u.name AS claimer_name, u.email AS claimer_email, u.phone AS claimer_phone
+       FROM claims c
+       LEFT JOIN found_items f ON c.item_type = 'found' AND c.item_id = f.item_id
+       LEFT JOIN lost_items l  ON c.item_type = 'lost'  AND c.item_id = l.item_id
+       LEFT JOIN users u ON c.user_id = u.user_id
+       ${whereClause}
+       ORDER BY c.created_at DESC`
+      , params
+    );
+
+    const countsResult = await pool.query(
+      `SELECT status, COUNT(*)::int AS count
+       FROM claims
+       GROUP BY status`
+    );
+
+    const counts = countsResult.rows.reduce((acc, r) => { acc[r.status] = r.count; return acc; }, {});
+
+    res.json({ ok: true, counts, claims: claimsResult.rows });
+  } catch (error) {
+    console.error('Hub history error:', error);
+    res.status(500).json({ ok: false, error: error.message });
+  }
+});
+
+// User history endpoint: reports (lost & found) and claim outcomes for current user
+app.get('/api/user/history', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.sub || req.user.id || req.user.user_id;
+
+    const myLostResult = await pool.query(
+      `SELECT item_id, name, description, location, date_lost, status, created_at
+       FROM lost_items WHERE user_id = $1 ORDER BY created_at DESC`,
+      [userId]
+    );
+
+    const myFoundResult = await pool.query(
+      `SELECT item_id, name, description, location, date_found, status, created_at
+       FROM found_items WHERE user_id = $1 ORDER BY created_at DESC`,
+      [userId]
+    );
+
+    const myClaimsResult = await pool.query(
+      `SELECT c.claim_id, c.item_id, c.item_type, c.status, c.hub_message, c.created_at,
+              COALESCE(f.name, l.name) AS item_name
+       FROM claims c
+       LEFT JOIN found_items f ON c.item_type = 'found' AND c.item_id = f.item_id
+       LEFT JOIN lost_items l  ON c.item_type = 'lost'  AND c.item_id = l.item_id
+       WHERE c.user_id = $1
+       ORDER BY c.created_at DESC`,
+      [userId]
+    );
+
+    res.json({ ok: true, lost_reports: myLostResult.rows, found_reports: myFoundResult.rows, claims: myClaimsResult.rows });
+  } catch (error) {
+    console.error('User history error:', error);
+    res.status(500).json({ ok: false, error: error.message });
   }
 });
 
@@ -1189,7 +1281,15 @@ app.put('/api/hub/claim/:id/reject', async (req, res) => {
     const { message } = req.body || {};
     await client.query('BEGIN');
 
-    const claimRes = await client.query('SELECT * FROM claims WHERE claim_id = $1 FOR UPDATE', [claimId]);
+    const claimRes = await client.query(`
+      SELECT c.*, 
+             COALESCE(f.name, l.name) as item_name,
+             COALESCE(f.description, l.description) as item_description
+      FROM claims c
+      LEFT JOIN found_items f ON c.item_id = f.item_id AND c.item_type = 'found'
+      LEFT JOIN lost_items l ON c.item_id = l.item_id AND c.item_type = 'lost'
+      WHERE c.claim_id = $1
+    `, [claimId]);
     if (claimRes.rowCount === 0) {
       await client.query('ROLLBACK');
       return res.status(404).json({ ok: false, error: 'Claim not found' });
@@ -1210,7 +1310,7 @@ app.put('/api/hub/claim/:id/reject', async (req, res) => {
     }
 
     // Get claimer email for notification
-    const claimerRes = await client.query('SELECT email, name FROM users WHERE user_id = $1', [claim.claimer_user_id]);
+    const claimerRes = await client.query('SELECT email, name FROM users WHERE user_id = $1', [claim.user_id]);
     const claimerEmail = claimerRes.rows[0]?.email;
 
     await client.query('COMMIT');
@@ -1248,7 +1348,15 @@ app.put('/api/hub/claim/:id/partial', async (req, res) => {
     const { message } = req.body || {};
     await client.query('BEGIN');
 
-    const claimRes = await client.query('SELECT * FROM claims WHERE claim_id = $1 FOR UPDATE', [claimId]);
+    const claimRes = await client.query(`
+      SELECT c.*, 
+             COALESCE(f.name, l.name) as item_name,
+             COALESCE(f.description, l.description) as item_description
+      FROM claims c
+      LEFT JOIN found_items f ON c.item_id = f.item_id AND c.item_type = 'found'
+      LEFT JOIN lost_items l ON c.item_id = l.item_id AND c.item_type = 'lost'
+      WHERE c.claim_id = $1
+    `, [claimId]);
     if (claimRes.rowCount === 0) {
       await client.query('ROLLBACK');
       return res.status(404).json({ ok: false, error: 'Claim not found' });
@@ -1264,7 +1372,7 @@ app.put('/api/hub/claim/:id/partial', async (req, res) => {
       ['partial_verification', message || 'Please meet in person for verification', claimId]);
 
     // Get claimer email for notification
-    const claimerRes = await client.query('SELECT email, name FROM users WHERE user_id = $1', [claim.claimer_user_id]);
+    const claimerRes = await client.query('SELECT email, name FROM users WHERE user_id = $1', [claim.user_id]);
     const claimerEmail = claimerRes.rows[0]?.email;
 
     await client.query('COMMIT');
@@ -1314,7 +1422,7 @@ app.post('/api/hub/claim/:id/message', authenticateToken, async (req, res) => {
 
     let recipientEmail = (to || '').trim();
     if (!recipientEmail && claim) {
-      const userRes = await client.query('SELECT email, name FROM users WHERE user_id = $1', [claim.user_id || claim.claimer_user_id]);
+      const userRes = await client.query('SELECT email, name FROM users WHERE user_id = $1', [claim.user_id || claim.user_id]);
       recipientEmail = userRes.rows[0]?.email || '';
     }
 

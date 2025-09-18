@@ -24,6 +24,8 @@ import RewardsWallet from './pages/user/RewardsWallet'
 import HubDashboard from './pages/hub/HubDashboard'
 import ClaimsManagement from './pages/hub/ClaimsManagement'
 import Analytics from './pages/hub/Analytics'
+import HubHistory from './pages/hub/HubHistory'
+import UserHistory from './pages/user/UserHistory'
 
 // Component to conditionally render footer
 const AppContent = () => {
@@ -54,10 +56,12 @@ const AppContent = () => {
           <Route path="/user/my-reports" element={<ProtectedRoute><MyReports /></ProtectedRoute>} />
           <Route path="/user/my-claims" element={<ProtectedRoute><MyClaims /></ProtectedRoute>} />
           <Route path="/user/claim-history" element={<ProtectedRoute><ClaimHistory /></ProtectedRoute>} />
+          <Route path="/user/history" element={<ProtectedRoute><UserHistory /></ProtectedRoute>} />
           <Route path="/user/wallet" element={<ProtectedRoute><RewardsWallet /></ProtectedRoute>} />
           <Route path="/hub" element={<HubDashboard />} />
           <Route path="/hub/claims" element={<ClaimsManagement />} />
           <Route path="/hub/analytics" element={<Analytics />} />
+          <Route path="/hub/history" element={<HubHistory />} />
         </Routes>
       </main>
       {!shouldHideFooter && <Footer />}

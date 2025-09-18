@@ -31,6 +31,7 @@ const handleResponse = async (response) => {
   return data;
 };
 
+
 // Email service functions
 export const sendEmail = async (emailData, token = null) => {
   try {
@@ -223,18 +224,17 @@ export const getHubClaims = async (status = '', token = null) => {
   }
 };
 
-export const approveHubClaim = async (claimId, token = null) => {
+export const approveHubClaim = async (claimId) => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/hub/claim/${claimId}/approve`, {
       method: 'PUT',
-      headers: getAuthHeaders(token)
+      headers: getAuthHeaders()
     });
     return await handleResponse(response);
   } catch (error) {
     throw error;
   }
 };
-
 export const rejectHubClaim = async (claimId, message = '', token = null) => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/hub/claim/${claimId}/reject`, {
