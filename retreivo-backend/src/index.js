@@ -963,6 +963,13 @@ app.post('/api/user/claim', authenticateToken, async (req, res) => {
       [userId, item_id, item_type, 'pending']
     );
     
+    // Mark the item as pending_claim but keep it visible in searches
+    if (item_type === 'found') {
+      await client.query("UPDATE found_items SET status = 'pending_claim' WHERE item_id = $1 AND status = 'available'", [item_id]);
+    } else {
+      await client.query("UPDATE lost_items SET status = 'pending_claim' WHERE item_id = $1 AND status = 'active'", [item_id]);
+    }
+
     await client.query('COMMIT');
     res.status(201).json({ ok: true, claim: result.rows[0] });
   } catch (err) {
