@@ -1,90 +1,800 @@
+/home/purushoth/.local/bin/cursor: ignoring input
 
-> retreivo-backend@0.1.0 dev
-> node --watch src/index.js
+> retreivo-backend@0.1.0 start
+> node src/index.js
 
 Backend running on port 5000
 Database URL: postgresql://postgres:Vpcare@24x7@localhost:5432/retreivo
 JWT Secret: supersecre...
 Connected to PostgreSQL database
-::1 - - [25/Aug/2025:14:51:29 +0000] "GET /api/hub/claims?status=pending HTTP/1.1" 200 265 "-" "curl/8.14.1"
 Connected to PostgreSQL database
-::1 - - [25/Aug/2025:14:51:49 +0000] "PUT /api/hub/claim/1/approve HTTP/1.1" 200 44 "-" "curl/8.14.1"
-Restarting 'src/index.js'
-Backend running on port 5000
-Database URL: postgresql://postgres:Vpcare@24x7@localhost:5432/retreivo
-JWT Secret: supersecre...
-::1 - - [25/Aug/2025:14:52:42 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:52:42 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:30 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
 Connected to PostgreSQL database
-::1 - - [25/Aug/2025:14:52:42 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:52:42 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
 Connected to PostgreSQL database
-User logged in successfully: p@gmail.com
-::1 - - [25/Aug/2025:14:52:56 +0000] "POST /api/auth/login HTTP/1.1" 200 328 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:09 +0000] "POST /api/ml/match-text HTTP/1.1" 200 224 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:31 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:47:35 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:47:35 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:47:35 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:47:35 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
 Connected to PostgreSQL database
-::1 - - [25/Aug/2025:14:53:10 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:10 +0000] "POST /api/ml/match-text HTTP/1.1" 200 224 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:10 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:11 +0000] "POST /api/ml/match-text HTTP/1.1" 200 224 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:11 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:19 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:19 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:20 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:20 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:20 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:20 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:20 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:20 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:20 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:20 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:20 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:21 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:21 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:21 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:21 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:21 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:21 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:21 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:21 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:21 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:21 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:21 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:22 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:22 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:22 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:22 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:22 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:22 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:22 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:22 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:22 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:22 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:23 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:23 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:23 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:23 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:23 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:23 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:23 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:23 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:23 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:23 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:23 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:24 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:24 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:24 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:24 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:24 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:24 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:24 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:24 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:53:24 +0000] "POST /api/user/search HTTP/1.1" 200 24 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
 Connected to PostgreSQL database
-::1 - - [25/Aug/2025:14:54:34 +0000] "POST /api/user/report-found HTTP/1.1" 201 232 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:54:45 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:35 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
 Connected to PostgreSQL database
-::1 - - [25/Aug/2025:14:54:45 +0000] "POST /api/user/search HTTP/1.1" 200 246 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:54:46 +0000] "POST /api/ml/match-text HTTP/1.1" 200 225 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:54:46 +0000] "POST /api/user/search HTTP/1.1" 200 246 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-::1 - - [25/Aug/2025:14:54:50 +0000] "POST /api/user/claim HTTP/1.1" 201 137 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:35 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:47:36 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:47:36 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:47:36 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:47:36 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:36 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:36 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:49 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:50 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:50 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:51 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+Get claim history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:982:20 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '61',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:52 +0000] "GET /api/user/claim-history HTTP/1.1" 500 52 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+Get claim history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:982:20 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '61',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:47:52 +0000] "GET /api/user/claim-history HTTP/1.1" 500 52 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+::1 - - [19/Sep/2025:09:47:53 +0000] "GET /api/user/rewards HTTP/1.1" 200 36 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:47:53 +0000] "GET /api/user/rewards HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:48:08 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:48:08 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User history error: error: column c.hub_message does not exist
+    at /home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1358:28 {
+  length: 111,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '54',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+::1 - - [19/Sep/2025:09:48:10 +0000] "GET /api/user/history HTTP/1.1" 500 58 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+::1 - - [19/Sep/2025:09:51:20 +0000] "GET /api/user/history HTTP/1.1" 200 60 "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:51:20 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:51:21 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:51:21 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:51:21 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:51:22 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:51:22 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:51:22 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:51:23 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36"
+::1 - - [19/Sep/2025:09:51:27 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:27 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:29 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:30 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:30 +0000] "GET /api/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:30 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:30 +0000] "GET /api/ml/health HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:30 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:30 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+::1 - - [19/Sep/2025:09:51:34 +0000] "GET /api/user/rewards HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:51:34 +0000] "GET /api/user/rewards HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+::1 - - [19/Sep/2025:09:52:23 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:52:23 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+Failed login attempt for email: g@gmail.com
+::1 - - [19/Sep/2025:09:54:31 +0000] "POST /api/auth/login HTTP/1.1" 401 48 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Failed login attempt for email: g@gmail.com
+::1 - - [19/Sep/2025:09:54:37 +0000] "POST /api/auth/login HTTP/1.1" 401 48 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User logged in successfully: sakthimurugansm2018@gmail.com
+::1 - - [19/Sep/2025:09:55:25 +0000] "POST /api/auth/login HTTP/1.1" 200 369 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:55:26 +0000] "GET /api/user/claim-history HTTP/1.1" 200 23 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:55:26 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+::1 - - [19/Sep/2025:09:55:32 +0000] "GET /api/user/rewards HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:55:32 +0000] "GET /api/user/rewards HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:55:33 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:55:33 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+ML service error: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:506:26 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+::1 - - [19/Sep/2025:09:56:53 +0000] "POST /api/user/report-lost HTTP/1.1" 201 313 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:56:55 +0000] "GET /api/user/history HTTP/1.1" 200 234 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:56:55 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User created successfully: guharajceg2027@gmail.com
+::1 - - [19/Sep/2025:09:58:16 +0000] "POST /api/auth/signup HTTP/1.1" 201 360 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User logged in successfully: guharajceg2027@gmail.com
+::1 - - [19/Sep/2025:09:58:37 +0000] "POST /api/auth/login HTTP/1.1" 200 360 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:58:39 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:09:58:39 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+ML service error: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:563:26 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+::1 - - [19/Sep/2025:10:06:54 +0000] "POST /api/user/report-found HTTP/1.1" 201 312 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:07:00 +0000] "GET /api/user/history HTTP/1.1" 200 238 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:07:00 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User logged in successfully: sakthimurugansm2018@gmail.com
+::1 - - [19/Sep/2025:10:07:47 +0000] "POST /api/auth/login HTTP/1.1" 200 369 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:07:49 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:07:49 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+::1 - - [19/Sep/2025:10:09:23 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:09:23 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:09:25 +0000] "POST /api/user/search HTTP/1.1" 200 506 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+ML service error: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:506:26 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+::1 - - [19/Sep/2025:10:14:53 +0000] "POST /api/user/report-lost HTTP/1.1" 201 307 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:54 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:54 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:56 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:56 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:57 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:57 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:57 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:58 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:58 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:59 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:59 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:14:59 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:15:04 +0000] "POST /api/user/search HTTP/1.1" 200 726 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+::1 - - [19/Sep/2025:10:15:45 +0000] "POST /api/user/claim HTTP/1.1" 201 137 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:15:49 +0000] "GET /api/user/history HTTP/1.1" 200 548 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:15:49 +0000] "GET /api/user/history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 0)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 1)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 2)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 3)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+::1 - - [19/Sep/2025:10:16:32 +0000] "GET /api/hub/claims?status=pending HTTP/1.1" 200 1666 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 0)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 1)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 2)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 3)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 0)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+::1 - - [19/Sep/2025:10:16:32 +0000] "GET /api/hub/claims?status=approved HTTP/1.1" 200 441 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+::1 - - [19/Sep/2025:10:16:32 +0000] "GET /api/hub/claims?status=pending HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 0)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+::1 - - [19/Sep/2025:10:16:32 +0000] "GET /api/hub/claims?status=approved HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 0)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 1)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 2)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 3)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+::1 - - [19/Sep/2025:10:16:37 +0000] "GET /api/hub/claims HTTP/1.1" 200 1666 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 1)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 0)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 2)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+Error calculating fraud score: TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1134:30
+    at async Promise.all (index 3)
+    at async file:///home/purushoth/Documents/sop/SOP_ongoing/retreivo-backend/src/index.js:1130:35 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1134:18)
+      at afterConnectMultiple (node:net:1715:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [ [Error], [Error] ]
+  }
+}
+::1 - - [19/Sep/2025:10:16:37 +0000] "GET /api/hub/claims HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+Connected to PostgreSQL database
+Connected to PostgreSQL database
+User created successfully: madhan@gmail.com
+::1 - - [19/Sep/2025:10:18:10 +0000] "POST /api/auth/signup HTTP/1.1" 201 343 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+User logged in successfully: madhan@gmail.com
+::1 - - [19/Sep/2025:10:18:20 +0000] "POST /api/auth/login HTTP/1.1" 200 343 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:18:21 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:18:22 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:18:25 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:18:25 +0000] "GET /api/user/claim-history HTTP/1.1" 304 - "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+::1 - - [19/Sep/2025:10:18:27 +0000] "POST /api/user/search HTTP/1.1" 200 726 "http://localhost:5177/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"

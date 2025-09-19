@@ -65,6 +65,15 @@ export async function matchText(query) {
   return r.json();
 }
 
+export async function compareItems(lostItem, foundItem) {
+  const r = await fetch(`${API_BASE_URL}/api/ml/compare-items`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ lost_item: lostItem, found_item: foundItem })
+  });
+  return r.json();
+}
+
 // Auth endpoints
 export const signup = async (userData) => {
   try {

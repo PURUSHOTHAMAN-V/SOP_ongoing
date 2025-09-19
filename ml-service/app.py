@@ -1,20 +1,39 @@
 from flask import Flask, request, jsonify
 import numpy as np
-import cv2
+try:
+    import cv2
+except Exception:
+    cv2 = None
 import base64
 import io
 from PIL import Image
-from thefuzz import fuzz
+try:
+    from thefuzz import fuzz
+except Exception:
+    fuzz = None
 import logging
 import sqlite3
 import os
 from datetime import datetime
 import json
-import torch
-import torchvision.transforms as transforms
-import torchvision.models as models
-from sklearn.metrics.pairwise import cosine_similarity
+try:
+    import torch
+    import torchvision.transforms as transforms
+    import torchvision.models as models
+except Exception:
+    torch = None
+    transforms = None
+    models = None
+try:
+    from sklearn.metrics.pairwise import cosine_similarity
+except Exception:
+    cosine_similarity = None
 import pickle
+try:
+    from transformers import AutoTokenizer, AutoModel
+except Exception:
+    AutoTokenizer = None
+    AutoModel = None
 
 app = Flask(__name__)
 
@@ -58,6 +77,8 @@ init_database()
 def init_resnet_model():
     """Initialize ResNet50 model for feature extraction"""
     try:
+        if models is None or torch is None:
+            raise RuntimeError('Torch/torchvision unavailable')
         model = models.resnet50(pretrained=True)
         model.eval()  # Set to evaluation mode
         # Remove the final classification layer to get features
@@ -71,10 +92,28 @@ def init_resnet_model():
 # Global model variable
 resnet_model = init_resnet_model()
 
+# Initialize BERT model for text embeddings (mean pooled)
+def init_text_model():
+    try:
+        if AutoTokenizer is None or AutoModel is None or torch is None:
+            raise RuntimeError('Transformers/Torch unavailable')
+        tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
+        model = AutoModel.from_pretrained('bert-base-uncased')
+        model.eval()
+        logger.info("BERT model loaded successfully")
+        return tokenizer, model
+    except Exception as e:
+        logger.error(f"Failed to load BERT model: {e}")
+        return None, None
+
+text_tokenizer, text_model = init_text_model()
+
 # Image preprocessing for ResNet50
 def preprocess_image_for_resnet(image_data):
     """Preprocess image for ResNet50 feature extraction"""
     try:
+        if transforms is None:
+            return None
         # Decode base64 image
         if isinstance(image_data, str) and image_data.startswith('data:image'):
             image_data = image_data.split(',')[1]
@@ -104,7 +143,7 @@ def preprocess_image_for_resnet(image_data):
 def extract_resnet_features(image_tensor):
     """Extract features using ResNet50"""
     try:
-        if resnet_model is None:
+        if resnet_model is None or torch is None:
             logger.warning("ResNet50 model not available, falling back to ORB features")
             return None
             
@@ -116,6 +155,148 @@ def extract_resnet_features(image_tensor):
     except Exception as e:
         logger.error(f"Error extracting ResNet features: {e}")
         return None
+
+def mean_pool_last_hidden_state(last_hidden_state, attention_mask):
+    try:
+        mask = attention_mask.unsqueeze(-1).expand(last_hidden_state.size()).float()
+        masked = last_hidden_state * mask
+        summed = torch.sum(masked, dim=1)
+        counts = torch.clamp(mask.sum(dim=1), min=1e-9)
+        return (summed / counts).squeeze(0).detach().numpy()
+    except Exception as e:
+        logger.error(f"Error in mean pooling: {e}")
+        return None
+
+def encode_text_to_embedding(text):
+    """Encode input text into a fixed-size embedding using BERT with mean pooling"""
+    try:
+        if not text or text.strip() == '':
+            return None
+        if text_tokenizer is None or text_model is None or torch is None:
+            return None
+        inputs = text_tokenizer(text, return_tensors='pt', truncation=True, max_length=256)
+        with torch.no_grad():
+            outputs = text_model(**inputs)
+        embedding = mean_pool_last_hidden_state(outputs.last_hidden_state, inputs['attention_mask'])
+        return embedding
+    except Exception as e:
+        logger.error(f"Error encoding text: {e}")
+        return None
+
+def cosine_sim(a, b):
+    try:
+        if a is None or b is None or cosine_similarity is None:
+            return 0.0
+        a2 = np.array(a).reshape(1, -1)
+        b2 = np.array(b).reshape(1, -1)
+        return float(cosine_similarity(a2, b2)[0][0])
+    except Exception as e:
+        logger.error(f"Error computing cosine similarity: {e}")
+        return 0.0
+
+def compute_feature_set(lost_item, found_item):
+    """Compute feature-level similarities between lost and found items"""
+    # Text: combine name + description
+    lost_text = f"{lost_item.get('name','')} {lost_item.get('description','')}".strip()
+    found_text = f"{found_item.get('name','')} {found_item.get('description','')}".strip()
+    lost_emb = encode_text_to_embedding(lost_text)
+    found_emb = encode_text_to_embedding(found_text)
+    text_similarity = cosine_sim(lost_emb, found_emb)
+
+    # Category similarity (fallback to fuzzy if BERT unavailable)
+    category_similarity = calculate_text_similarity(lost_item.get('category',''), found_item.get('category',''))
+
+    # Location similarity (fuzzy)
+    location_similarity = calculate_text_similarity(lost_item.get('location',''), found_item.get('location',''))
+
+    # Time similarity
+    time_similarity = 0.0
+    lost_date = lost_item.get('date') or lost_item.get('date_lost')
+    found_date = found_item.get('date') or found_item.get('date_found')
+    if lost_date and found_date:
+        try:
+            lost_dt = datetime.strptime(lost_date, '%Y-%m-%d')
+            found_dt = datetime.strptime(found_date, '%Y-%m-%d')
+            days_diff = abs((lost_dt - found_dt).days)
+            time_similarity = max(0.0, 1.0 - (days_diff / 30.0))
+        except Exception:
+            time_similarity = 0.0
+
+    # Image similarity via ResNet if possible
+    image_similarity = 0.0
+    if lost_item.get('image') and found_item.get('image'):
+        try:
+            lt = preprocess_image_for_resnet(lost_item['image'])
+            ft = preprocess_image_for_resnet(found_item['image'])
+            if lt is not None and ft is not None:
+                lf = extract_resnet_features(lt)
+                ff = extract_resnet_features(ft)
+                if lf is not None and ff is not None:
+                    image_similarity = cosine_sim(lf, ff)
+        except Exception as e:
+            logger.error(f"Image similarity error: {e}")
+
+    features = {
+        'text_similarity': float(max(0.0, min(1.0, text_similarity))) if text_emb_avail() else float(calculate_text_similarity(lost_text, found_text)),
+        'category_similarity': float(max(0.0, min(1.0, category_similarity))),
+        'location_similarity': float(max(0.0, min(1.0, location_similarity))),
+        'time_similarity': float(max(0.0, min(1.0, time_similarity))),
+        'image_similarity': float(max(0.0, min(1.0, image_similarity)))
+    }
+    return features
+
+def text_emb_avail():
+    return text_tokenizer is not None and text_model is not None
+
+def compute_match_score(features):
+    # Weighted average with emphasis on text and image
+    w = {
+        'text_similarity': 0.35,
+        'category_similarity': 0.15,
+        'location_similarity': 0.15,
+        'time_similarity': 0.10,
+        'image_similarity': 0.25
+    }
+    score = sum(features[k] * w[k] for k in w)
+    return float(round(score * 100.0, 1))
+
+fraud_model = None
+fraud_model_path = 'fraud_model.pkl'
+
+def load_or_train_fraud_model():
+    global fraud_model
+    try:
+        if os.path.exists(fraud_model_path):
+            with open(fraud_model_path, 'rb') as f:
+                fraud_model = pickle.load(f)
+            logger.info("Loaded fraud model from disk")
+            return
+    except Exception as e:
+        logger.warning(f"Failed to load fraud model: {e}")
+
+    # Train a small RandomForest on synthetic data aligned to intuition
+    try:
+        from sklearn.ensemble import RandomForestClassifier
+        rng = np.random.default_rng(42)
+        n = 2000
+        # Features: text, category, location, time, image
+        X = rng.random((n, 5))
+        # Label: higher similarities => lower fraud probability
+        base = 1.0 - (0.4*X[:,0] + 0.15*X[:,1] + 0.15*X[:,2] + 0.1*X[:,3] + 0.2*X[:,4])
+        noise = rng.normal(0, 0.1, n)
+        y_prob = np.clip(base + noise, 0, 1)
+        y = (y_prob > 0.5).astype(int)  # 1 = fraud, 0 = not fraud
+        clf = RandomForestClassifier(n_estimators=200, random_state=42, class_weight='balanced')
+        clf.fit(X, y)
+        fraud_model = clf
+        with open(fraud_model_path, 'wb') as f:
+            pickle.dump(fraud_model, f)
+        logger.info("Trained and saved synthetic fraud model")
+    except Exception as e:
+        logger.error(f"Failed to train fraud model: {e}")
+        fraud_model = None
+
+load_or_train_fraud_model()
 
 @app.get("/health")
 def health():
@@ -151,6 +332,8 @@ def health():
 def preprocess_image(image_data):
     """Convert base64 image to OpenCV format and extract ORB features"""
     try:
+        if cv2 is None:
+            return None
         # Decode base64 image
         if isinstance(image_data, str) and image_data.startswith('data:image'):
             # Handle data URL format
@@ -198,7 +381,7 @@ def preprocess_image(image_data):
 def calculate_image_similarity(desc1, desc2):
     """Calculate similarity between two image descriptors using feature matching"""
     try:
-        if desc1 is None or desc2 is None:
+        if cv2 is None or desc1 is None or desc2 is None:
             return 0.0
             
         # Use BFMatcher with Hamming distance
@@ -226,6 +409,8 @@ def calculate_image_similarity(desc1, desc2):
 def calculate_color_similarity(img1, img2):
     """Calculate color histogram similarity"""
     try:
+        if cv2 is None:
+            return 0.0
         # Calculate histograms for each channel
         hist1 = cv2.calcHist([img1], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
         hist2 = cv2.calcHist([img2], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
@@ -1009,13 +1194,76 @@ def analyze_claim_fraud():
                 "image_available": image_similarity > 0
             }
         })
-        
     except Exception as e:
         logger.error(f"Error in analyze_claim_fraud: {e}")
         return jsonify({
             "ok": False,
             "error": str(e)
         })
+
+@app.post("/compare-items")
+def compare_items():
+    """Compare a lost item and a found item and predict fraud probability.
+    Input JSON: { lost_item: {...}, found_item: {...} }
+    Output JSON: { match_score: X, fraud_probability: Y%, explanation: [...] }
+    """
+    payload = request.get_json(silent=True) or {}
+    lost_item = payload.get('lost_item', {})
+    found_item = payload.get('found_item', {})
+
+    if not lost_item or not found_item:
+        return jsonify({ "ok": False, "error": "lost_item and found_item are required" }), 400
+
+    try:
+        feats = compute_feature_set(lost_item, found_item)
+        match_score = compute_match_score(feats)
+
+        # Prepare vector for classifier
+        x_vec = np.array([
+            feats['text_similarity'],
+            feats['category_similarity'],
+            feats['location_similarity'],
+            feats['time_similarity'],
+            feats['image_similarity']
+        ]).reshape(1, -1)
+
+        fraud_prob = 0.5
+        feature_importance = None
+        if fraud_model is not None:
+            try:
+                proba = fraud_model.predict_proba(x_vec)[0][1]
+                fraud_prob = float(proba)
+                feature_importance = getattr(fraud_model, 'feature_importances_', None)
+            except Exception as e:
+                logger.error(f"Fraud model inference error: {e}")
+
+        # Build explanation
+        explanations = []
+        explanations.append(f"Text similarity: {round(feats['text_similarity']*100,1)}% (BERT{'+' if text_emb_avail() else '/fuzzy'} match)")
+        explanations.append(f"Category similarity: {round(feats['category_similarity']*100,1)}%")
+        explanations.append(f"Location similarity: {round(feats['location_similarity']*100,1)}%")
+        explanations.append(f"Time proximity: {round(feats['time_similarity']*100,1)}% (closer dates increase match)")
+        if feats['image_similarity'] > 0:
+            explanations.append(f"Image similarity: {round(feats['image_similarity']*100,1)}% (ResNet50 cosine)")
+        else:
+            explanations.append("Image similarity: N/A (image not provided or features unavailable)")
+
+        if feature_importance is not None:
+            # Map importances to feature names
+            names = ['text', 'category', 'location', 'time', 'image']
+            ranked = sorted(zip(names, feature_importance.tolist()), key=lambda x: x[1], reverse=True)
+            explanations.append("Model feature importance: " + ", ".join([f"{n}={round(v*100,1)}%" for n,v in ranked]))
+
+        return jsonify({
+            "ok": True,
+            "match_score": match_score,
+            "fraud_probability": round(fraud_prob * 100.0, 1),
+            "features": { k: round(v*100.0, 1) for k, v in feats.items() },
+            "explanation": explanations
+        })
+    except Exception as e:
+        logger.error(f"compare_items error: {e}")
+        return jsonify({ "ok": False, "error": str(e) }), 500
 
 @app.post("/match-lost-found")
 def match_lost_found():

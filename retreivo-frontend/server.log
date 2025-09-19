@@ -1,20 +1,11 @@
+/home/purushoth/.local/bin/cursor: ignoring input
 
 > retreivo-frontend@0.1.0 dev
-> vite --host 0.0.0.0 --port 5178
+> vite --host --port 5173
 
 [33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
 
-  VITE v5.4.19  ready in 683 ms
+  VITE v5.4.20  ready in 297 ms
 
-  ➜  Local:   http://localhost:5178/
-  ➜  Network: http://10.16.23.165:5178/
-8:08:57 PM [vite] hmr update /src/pages/user/SearchItems.jsx
-8:09:10 PM [vite] hmr update /src/pages/user/SearchItems.jsx
-8:09:20 PM [vite] hmr update /src/pages/user/SearchItems.jsx
-8:09:27 PM [vite] hmr update /src/pages/user/SearchItems.jsx
-8:12:15 PM [vite] hmr update /src/pages/user/ReportLostItem.jsx
-8:12:38 PM [vite] hmr update /src/pages/user/ReportFound.jsx
-8:12:52 PM [vite] hmr update /src/pages/user/ReportLostItem.jsx
-8:13:00 PM [vite] hmr update /src/pages/user/ReportFound.jsx
-8:13:12 PM [vite] hmr update /src/pages/user/ReportLostItem.jsx
-8:13:12 PM [vite] hmr update /src/pages/user/ReportFound.jsx
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://10.16.23.165:5173/

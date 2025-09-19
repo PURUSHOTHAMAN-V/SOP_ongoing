@@ -1979,3 +1979,23 @@ NameError: name 'item_database' is not defined. Did you mean: 'init_database'?
 2025-09-17 20:49:18,937 - werkzeug - INFO - 127.0.0.1 - - [17/Sep/2025 20:49:18] "GET /health HTTP/1.1" 200 -
 2025-09-17 20:49:19,109 - werkzeug - INFO - 127.0.0.1 - - [17/Sep/2025 20:49:19] "GET /health HTTP/1.1" 200 -
 2025-09-17 20:49:19,124 - werkzeug - INFO - 127.0.0.1 - - [17/Sep/2025 20:49:19] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:08:51,143 - __main__ - ERROR - Failed to load ResNet50 model: 'NoneType' object has no attribute 'resnet50'
+2025-09-19 15:08:51,144 - __main__ - ERROR - Failed to load BERT model: 'NoneType' object has no attribute 'from_pretrained'
+2025-09-19 15:08:51,144 - __main__ - ERROR - Failed to train fraud model: No module named 'sklearn'
+2025-09-19 15:08:51,159 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5002
+ * Running on http://10.16.23.165:5002
+2025-09-19 15:08:51,159 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-09-19 15:10:39,774 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:10:39] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:10:39,789 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:10:39] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:17:35,242 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:17:35] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:17:35,279 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:17:35] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:17:36,531 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:17:36] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:17:36,542 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:17:36] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:21:29,102 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:21:29] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:21:29,111 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:21:29] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:21:29,670 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:21:29] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:21:29,681 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:21:29] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:21:30,086 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:21:30] "GET /health HTTP/1.1" 200 -
+2025-09-19 15:21:30,099 - werkzeug - INFO - 127.0.0.1 - - [19/Sep/2025 15:21:30] "GET /health HTTP/1.1" 200 -

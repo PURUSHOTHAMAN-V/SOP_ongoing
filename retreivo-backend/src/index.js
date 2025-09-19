@@ -586,14 +586,114 @@ app.post('/api/user/report-found', authenticateToken, async (req, res) => {
       console.error('ML service error:', mlErr);
     }
     
-    res.status(201).json({ 
-      ok: true, 
-      item,
-      available_for_matching: true
-    });
+    // Award 10 reward points to the finder
+    try {
+      await pool.query('UPDATE users SET rewards_balance = rewards_balance + $1 WHERE user_id = $2', [10, userId]);
+      await pool.query('INSERT INTO rewards(user_id, amount, reason) VALUES($1, $2, $3)', [userId, 10, `👍 Reported found item "${name}"`]);
+    } catch (rewardsErr) {
+      console.error('Failed to award finder rewards:', rewardsErr);
+    }
+
+    res.status(201).json({ ok: true, item, available_for_matching: true });
   } catch (err) {
     console.error('Report found item error:', err);
     res.status(500).json({ ok: false, error: 'Failed to report found item' });
+  }
+});
+
+// Rewards: get balance and history
+app.get('/api/rewards', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.sub;
+    const [userRow, history, redemptions] = await Promise.all([
+      pool.query('SELECT rewards_balance FROM users WHERE user_id = $1', [userId]),
+      pool.query('SELECT reward_id, amount, reason, created_at FROM rewards WHERE user_id = $1 ORDER BY created_at DESC LIMIT 50', [userId]),
+      pool.query('SELECT redemption_id, type, points_spent, cash_value, product_name, created_at FROM reward_redemptions WHERE user_id = $1 ORDER BY created_at DESC LIMIT 50', [userId])
+    ]);
+    res.json({ ok: true, balance: userRow.rows[0]?.rewards_balance || 0, earnings: history.rows, redemptions: redemptions.rows });
+  } catch (error) {
+    console.error('Get rewards error:', error);
+    res.status(500).json({ ok: false, error: 'Failed to fetch rewards' });
+  }
+});
+
+// Rewards: list partner products
+app.get('/api/rewards/products', async (_req, res) => {
+  try {
+    const r = await pool.query('SELECT product_id, name, description, points_price, partner_name FROM partner_products WHERE active = TRUE ORDER BY points_price ASC');
+    res.json({ ok: true, products: r.rows });
+  } catch (error) {
+    console.error('List products error:', error);
+    res.status(500).json({ ok: false, error: 'Failed to list products' });
+  }
+});
+
+// Rewards: redeem cash (1 point = 1 INR)
+app.post('/api/rewards/redeem/cash', authenticateToken, async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const userId = req.user.sub;
+    const { points } = req.body || {};
+    const pts = Math.max(0, parseInt(points || 0, 10));
+    if (pts <= 0) return res.status(400).json({ ok: false, error: 'Points must be > 0' });
+
+    await client.query('BEGIN');
+    const balRes = await client.query('SELECT rewards_balance FROM users WHERE user_id = $1 FOR UPDATE', [userId]);
+    const balance = balRes.rows[0]?.rewards_balance || 0;
+    if (balance < pts) {
+      await client.query('ROLLBACK');
+      return res.status(400).json({ ok: false, error: 'Insufficient points' });
+    }
+    await client.query('UPDATE users SET rewards_balance = rewards_balance - $1 WHERE user_id = $2', [pts, userId]);
+    await client.query(
+      'INSERT INTO reward_redemptions(user_id, type, points_spent, cash_value) VALUES($1, $2, $3, $4)',
+      [userId, 'cash', pts, pts]
+    );
+    await client.query('COMMIT');
+    res.json({ ok: true, message: `Redeemed ₹${pts}`, points_spent: pts, cash_value: pts });
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.error('Redeem cash error:', error);
+    res.status(500).json({ ok: false, error: 'Failed to redeem cash' });
+  } finally {
+    client.release();
+  }
+});
+
+// Rewards: redeem a partner product
+app.post('/api/rewards/redeem/product', authenticateToken, async (req, res) => {
+  const client = await pool.connect();
+  try {
+    const userId = req.user.sub;
+    const { product_id } = req.body || {};
+    if (!product_id) return res.status(400).json({ ok: false, error: 'product_id required' });
+
+    await client.query('BEGIN');
+    const pRes = await client.query('SELECT product_id, name, points_price FROM partner_products WHERE product_id = $1 AND active = TRUE', [product_id]);
+    if (pRes.rowCount === 0) {
+      await client.query('ROLLBACK');
+      return res.status(404).json({ ok: false, error: 'Product not found' });
+    }
+    const product = pRes.rows[0];
+    const balRes = await client.query('SELECT rewards_balance FROM users WHERE user_id = $1 FOR UPDATE', [userId]);
+    const balance = balRes.rows[0]?.rewards_balance || 0;
+    if (balance < product.points_price) {
+      await client.query('ROLLBACK');
+      return res.status(400).json({ ok: false, error: 'Insufficient points' });
+    }
+    await client.query('UPDATE users SET rewards_balance = rewards_balance - $1 WHERE user_id = $2', [product.points_price, userId]);
+    await client.query(
+      'INSERT INTO reward_redemptions(user_id, type, points_spent, product_id, product_name) VALUES($1, $2, $3, $4, $5)',
+      [userId, 'product', product.points_price, product.product_id, product.name]
+    );
+    await client.query('COMMIT');
+    res.json({ ok: true, message: `Redeemed ${product.name}`, points_spent: product.points_price, product });
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.error('Redeem product error:', error);
+    res.status(500).json({ ok: false, error: 'Failed to redeem product' });
+  } finally {
+    client.release();
   }
 });
 
@@ -1605,6 +1705,20 @@ app.post('/api/ml/match-text', async (req, res) => {
 app.post('/api/ml/detect-duplicate', async (req, res) => {
   try {
     const r = await fetch(`${mlServiceBaseUrl}/detect-fraud`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(req.body || {}),
+    });
+    const data = await r.json();
+    res.status(r.status).json(data);
+  } catch (error) {
+    res.status(502).json({ ok: false, error: error.message });
+  }
+});
+
+app.post('/api/ml/compare-items', async (req, res) => {
+  try {
+    const r = await fetch(`${mlServiceBaseUrl}/compare-items`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(req.body || {}),
